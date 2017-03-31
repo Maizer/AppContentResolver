@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
@@ -161,13 +160,13 @@ public class AppContentResolver {
 			return;
 		}
 		synchronized (AppContentResolver.class) {
-			Iterator<Entry<Uri, List<AppContentObserver>>> mMap = mArray.entrySet().iterator();
-			while (mMap.hasNext()) {
-				List<AppContentObserver> mContentObservers = mMap.next().getValue();
+			Iterator<List<AppContentObserver>> mIter = mArray.values().iterator();
+			while (mIter.hasNext()) {
+				List<AppContentObserver> mContentObservers = mIter.next();
 				if (mContentObservers != null) {
 					mContentObservers.remove(observer);
 					if (mContentObservers.isEmpty()) {
-						mMap.remove();
+						mIter.remove();
 					}
 				}
 			}
@@ -219,9 +218,9 @@ public class AppContentResolver {
 		}
 		synchronized (AppContentResolver.class) {
 
-			Iterator<Entry<Uri, List<AppContentObserver>>> mObserversMap = mArray.entrySet().iterator();
-			while (mObserversMap.hasNext()) {
-				List<AppContentObserver> mContentObservers = mObserversMap.next().getValue();
+			Iterator<List<AppContentObserver>> mIter = mArray.values().iterator();
+			while (mIter.hasNext()) {
+				List<AppContentObserver> mContentObservers = mIter.next();
 				if (mContentObservers != null) {
 					for (int j = mContentObservers.size() - 1; j >= 0; j--) {
 						AppContentObserver result = mContentObservers.get(j);
@@ -237,7 +236,7 @@ public class AppContentResolver {
 						}
 					}
 					if (mContentObservers.isEmpty()) {
-						mObserversMap.remove();
+						mIter.remove();
 					}
 				}
 			}
