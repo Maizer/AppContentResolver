@@ -108,7 +108,7 @@ public class AppContentResolver {
 	AppContentResolver() {
 	}
 
-	public static boolean isCallContentResolver(String selection) {
+	public static boolean isCallAppContentResolver(String selection) {
 		return DESCRIPTOR.equals(selection);
 	}
 
