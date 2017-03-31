@@ -53,8 +53,6 @@ class AppContentObserverImpl extends AppContentObserver{
  
  
  
- 
- Include open source:[CombinArray](https://github.com/Maizer/MaizerArray/blob/master/CombinArray.java)
 
  Development platform : Eclipse
  
