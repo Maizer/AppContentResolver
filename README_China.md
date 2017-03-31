@@ -1,7 +1,9 @@
 AppContentResolver
 ----------
 
-Android应用程序内部ContentResolver,内部传输数据在你的App.Android原始ContentResolver只通知内容改变了,如果想要获取到更改的具体数据,我们必须定制实现,这是一个非常复杂的工作.
+Android应用程序内部ContentResolver,内部传输数据在你的App.缩短了前台匹配数据变化的时间,可以直接将后台改变的具体数据通知到前台.
+
+Android原始ContentResolver只通知内容改变了,如果想要获取到更改的具体数据,我们必须定制实现,这是一个非常复杂的工作.
 
 例如:
 
