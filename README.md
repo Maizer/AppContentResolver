@@ -22,7 +22,7 @@ In ContentProvider query method :
 ----------
 ```Java
 public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-		if (AppContentResolver.isCallContentResolver(selection)) {
+		if (AppContentResolver.isCallAppContentResolver(selection)) {
 			return AppContentResolver.getAppContentResolverServicer(getContext()).getCursor();
 		}
 ...
