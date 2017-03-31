@@ -18,7 +18,7 @@ This program is very simple for use.
 How work:
 
 In ContentProvider query method :
-----------
+-
 ```Java
 public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		if (AppContentResolver.isCallAppContentResolver(selection)) {
@@ -29,7 +29,7 @@ public Cursor query(Uri uri, String[] projection, String selection, String[] sel
 ```
 
 In other process :
-----------
+-
 ```Java
  AppContentResolver mResolver = AppContentResolver.queryAppContentResolver(Context,Uri);
   if(mResolver != null){
