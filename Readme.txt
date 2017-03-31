@@ -1,3 +1,6 @@
+
+AppContentResolver
+
 Android App Internal ContentResolver,It can internal transmit data In your's App.Android primitive ContentResolver only notification content is changed,If want get changed data,We must custom implements ,This is a very complicated work.
 For example:
 Multiple processes Media App,Has custom SqLite Database ,Need Copy System Database To this Database,if system database is changed,own database need match data change in own progress(this time very consuming),then by system ContentResolver notification own ContentObservers(in other progress) update data,then own ContentObserver match data base change,notification UI refresh,So we consuming a lot of time in match action.
@@ -13,17 +16,19 @@ How work:
 
 In ContentProvider query method
 
-public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-		if (AppContentResolver.isCallContentResolver(selection)) {
-			return AppContentResolver.getAppContentResolverServicer(getContext()).getCursor();
-		}
-...
-	}
+public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {//java
+		if (AppContentResolver.isCallContentResolver(selection)) {//java
+			return AppContentResolver.getAppContentResolverServicer(getContext()).getCursor();//java
+		}//java
+...//java
+	}//java
 
 In Other Context:
 
  AppContentResolver mResolver = AppContentResolver.queryAppContentResolver(Context,Uri);
  mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
+ 
+ @
 
 
 
