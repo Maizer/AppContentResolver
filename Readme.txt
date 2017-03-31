@@ -15,20 +15,19 @@ This program is very simple for use.
 How work:
 
 In ContentProvider query method
-
-public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {//java
-		if (AppContentResolver.isCallContentResolver(selection)) {//java
-			return AppContentResolver.getAppContentResolverServicer(getContext()).getCursor();//java
-		}//java
-...//java
-	}//java
-
+```Java
+public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+		if (AppContentResolver.isCallContentResolver(selection)) {
+			return AppContentResolver.getAppContentResolverServicer(getContext()).getCursor();
+		}
+...
+	}
+```
 In Other Context:
-
+```Java
  AppContentResolver mResolver = AppContentResolver.queryAppContentResolver(Context,Uri);
  mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
- 
- @
+ ```
 
 
 
