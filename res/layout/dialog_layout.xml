@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/dialog_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:hint="ID"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:hint="DATA"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/dialog_num"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:hint="Num(insert pressure test)"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/dialog_update"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:text="Update"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/dialog_delete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:text="Delete"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/dialog_insert"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:text="Insert"
+        android:textSize="15sp" />
+
+</LinearLayout>
