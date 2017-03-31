@@ -36,5 +36,7 @@ public Cursor query(Uri uri, String[] projection, String selection, String[] sel
 	   mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
   }
  ```
-
+ 
+ 开发平台:Eclipse
+ 
 [English README](/README.md)
