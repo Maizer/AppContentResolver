@@ -38,4 +38,9 @@ In other process :
 	   mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
   }
  ```
+ 
+ using open source:[CombinArray](https://github.com/Maizer/MaizerArray/blob/master/CombinArray.java)
+
+ Development platform : Eclipse
+ 
  [中文README](/README_China.md)
