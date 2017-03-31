@@ -48,8 +48,7 @@ class AppContentObserverImpl extends AppContentObserver{
 	   mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
   }
  ```
- 
- 包含开源库:[CombinArray](https://github.com/Maizer/MaizerArray/blob/master/CombinArray.java)
+
  
  开发平台:Eclipse
  
