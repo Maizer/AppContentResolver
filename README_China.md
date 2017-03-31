@@ -42,6 +42,7 @@ class AppContentObserverImpl extends AppContentObserver{
 ```
 
 ```Java
+//register AppContentObserver
  AppContentResolver mResolver = AppContentResolver.queryAppContentResolver(Context,Uri);
   if(mResolver != null){
 	   mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
