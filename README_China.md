@@ -37,7 +37,9 @@ public Cursor query(Uri uri, String[] projection, String selection, String[] sel
   }
  ```
  
+ 使用的开源库:[CombinArray](https://github.com/Maizer/MaizerArray/blob/master/CombinArray.java)
+ 
  开发平台:Eclipse
- 使用的开源类:[CombinArray](https://github.com/Maizer/MaizerArray/blob/master/CombinArray.java)
+ 
  
 [English README](/README.md)
