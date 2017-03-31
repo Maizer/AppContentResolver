@@ -27,9 +27,10 @@
 package com.maizer.appcontent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-
-import com.maizer.array.SparseArrrayObject;
+import java.util.Map.Entry;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
@@ -57,7 +58,7 @@ public class AppContentResolver {
 
 	private static AppContentResolver sResolver;
 
-	private SparseArrrayObject<Uri, List<AppContentObserver>> mArray;
+	private HashMap<Uri, List<AppContentObserver>> mArray;
 
 	public synchronized static AppContentResolver getAppContentResolverServicer(Context mContext) {
 		if (sResolver == null) {
@@ -142,7 +143,7 @@ public class AppContentResolver {
 	public void registerAppContentObserver(AppContentObserver mContenObserver, Uri uri, boolean sync) {
 		synchronized (AppContentResolver.class) {
 			if (mArray == null) {
-				mArray = new SparseArrrayObject<Uri, List<AppContentObserver>>();
+				mArray = new HashMap<Uri, List<AppContentObserver>>();
 			}
 			List<AppContentObserver> mObservers = mArray.get(uri);
 			if (mObservers == null) {
@@ -155,17 +156,18 @@ public class AppContentResolver {
 		}
 	}
 
-	public void unregisterAppContentObserver(AppContentObserver mContenObserver) {
-		if (mArray == null) {
+	public void unregisterAppContentObserver(AppContentObserver observer) {
+		if (mArray == null || observer == null) {
 			return;
 		}
 		synchronized (AppContentResolver.class) {
-			for (int i = mArray.size() - 1; i >= 0; i--) {
-				List<AppContentObserver> mContentObservers = mArray.valueAt(i);
-				if (mContenObserver != null) {
-					mContentObservers.remove(mContenObserver);
+			Iterator<Entry<Uri, List<AppContentObserver>>> mMap = mArray.entrySet().iterator();
+			while (mMap.hasNext()) {
+				List<AppContentObserver> mContentObservers = mMap.next().getValue();
+				if (mContentObservers != null) {
+					mContentObservers.remove(observer);
 					if (mContentObservers.isEmpty()) {
-						mArray.removeAt(i);
+						mMap.remove();
 					}
 				}
 			}
@@ -216,25 +218,28 @@ public class AppContentResolver {
 			return;
 		}
 		synchronized (AppContentResolver.class) {
-			try {
-				for (int i = mArray.size() - 1; i >= 0; i--) {
-					List<AppContentObserver> value = mArray.valueAt(i);
-					if (value != null) {
-						for (int j = value.size() - 1; j >= 0; j--) {
-							AppContentObserver result = value.get(j);
-							if (result instanceof AppContentObserverServicer) {
+
+			Iterator<Entry<Uri, List<AppContentObserver>>> mObserversMap = mArray.entrySet().iterator();
+			while (mObserversMap.hasNext()) {
+				List<AppContentObserver> mContentObservers = mObserversMap.next().getValue();
+				if (mContentObservers != null) {
+					for (int j = mContentObservers.size() - 1; j >= 0; j--) {
+						AppContentObserver result = mContentObservers.get(j);
+						if (result instanceof AppContentObserverServicer) {
+							try {
 								if (!((AppContentObserverServicer) result).pingBinder()) {
-									value.remove(j);
+									mContentObservers.remove(j);
 								}
+							} catch (Exception e) {
+								e.printStackTrace();
+								mContentObservers.remove(j);
 							}
 						}
-						if (value.isEmpty()) {
-							mArray.removeAt(i);
-						}
+					}
+					if (mContentObservers.isEmpty()) {
+						mObserversMap.remove();
 					}
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 	}
