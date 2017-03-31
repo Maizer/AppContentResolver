@@ -34,9 +34,9 @@ In other process :
 ----------
 ```Java
  AppContentResolver mResolver = AppContentResolver.queryAppContentResolver(Context,Uri);
- if(mResolver != null){
- mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
- }
+  if(mResolver != null){
+	   mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
+ 		}
  ```
 
 
