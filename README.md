@@ -38,7 +38,4 @@ In other process :
 	   mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
   }
  ```
-
-
-
-
+ [中文README](/README_china.md)
