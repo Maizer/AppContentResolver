@@ -41,7 +41,8 @@ class AppContentObserverImpl extends AppContentObserver{
 			//receive data change
 		}
 	} 
-	```
+```
+
 ```Java
 // register AppContentObserver
  AppContentResolver mResolver = AppContentResolver.queryAppContentResolver(Context,Uri);
