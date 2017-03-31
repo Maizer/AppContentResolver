@@ -35,11 +35,23 @@ public Cursor query(Uri uri, String[] projection, String selection, String[] sel
 In other process :
 -
 ```Java
+//impl AppContentObserver receive background change
+class AppContentObserverImpl extends AppContentObserver{
+		public void onContentChanged(int action,  Uri uri, Bundle data) {
+			//receive data change
+		}
+	} 
+	```
+```Java
+// register AppContentObserver
  AppContentResolver mResolver = AppContentResolver.queryAppContentResolver(Context,Uri);
   if(mResolver != null){
 	   mResolver.registerAppContentObserver(AppContentObserver, Uri, isSync);
   }
  ```
+ 
+ 
+ 
  
  using open source:[CombinArray](https://github.com/Maizer/MaizerArray/blob/master/CombinArray.java)
 
