@@ -37,3 +37,4 @@ public Cursor query(Uri uri, String[] projection, String selection, String[] sel
   }
  ```
 
+`[English README](https://github.com/Maizer/AppContentResolver/edit/master/README.md "悬停显示")`
