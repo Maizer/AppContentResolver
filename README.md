@@ -7,7 +7,9 @@ Multiple processes Media App,Has custom SqLite Database ,Need Copy System Databa
 sure ,has A lot of method to solve this problem .
 
 ----------
-Note : Whether or not security depending on your ContentProvider . Please do not try to modify the code ,Because security problem of the 
+Note : 
+----------
+Whether or not security depending on your ContentProvider . Please do not try to modify the code ,Because security problem of the 
 may trigger .
 ----------
 
