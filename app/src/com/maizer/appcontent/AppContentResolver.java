@@ -29,7 +29,7 @@ package com.maizer.appcontent;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.maizer.array.CombinArray;
+import com.maizer.array.SparseArrrayObject;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
@@ -57,7 +57,7 @@ public class AppContentResolver {
 
 	private static AppContentResolver sResolver;
 
-	private CombinArray<Uri, List<AppContentObserver>> mCombinArray;
+	private SparseArrrayObject<Uri, List<AppContentObserver>> mArray;
 
 	public synchronized static AppContentResolver getAppContentResolverServicer(Context mContext) {
 		if (sResolver == null) {
@@ -141,13 +141,13 @@ public class AppContentResolver {
 
 	public void registerAppContentObserver(AppContentObserver mContenObserver, Uri uri, boolean sync) {
 		synchronized (AppContentResolver.class) {
-			if (mCombinArray == null) {
-				mCombinArray = new CombinArray<Uri, List<AppContentObserver>>();
+			if (mArray == null) {
+				mArray = new SparseArrrayObject<Uri, List<AppContentObserver>>();
 			}
-			List<AppContentObserver> mObservers = mCombinArray.getValueOfKey(uri);
+			List<AppContentObserver> mObservers = mArray.get(uri);
 			if (mObservers == null) {
 				mObservers = new ArrayList<AppContentObserver>();
-				mCombinArray.add(uri, mObservers);
+				mArray.put(uri, mObservers);
 			}
 			if (!mObservers.contains(mContenObserver)) {
 				mObservers.add(mContenObserver);
@@ -156,16 +156,16 @@ public class AppContentResolver {
 	}
 
 	public void unregisterAppContentObserver(AppContentObserver mContenObserver) {
-		if (mCombinArray == null) {
+		if (mArray == null) {
 			return;
 		}
 		synchronized (AppContentResolver.class) {
-			for (int i = mCombinArray.size() - 1; i >= 0; i--) {
-				List<AppContentObserver> mContentObservers = mCombinArray.getValue(i);
+			for (int i = mArray.size() - 1; i >= 0; i--) {
+				List<AppContentObserver> mContentObservers = mArray.valueAt(i);
 				if (mContenObserver != null) {
 					mContentObservers.remove(mContenObserver);
 					if (mContentObservers.isEmpty()) {
-						mCombinArray.removeAt(i);
+						mArray.removeAt(i);
 					}
 				}
 			}
@@ -174,11 +174,11 @@ public class AppContentResolver {
 
 	public void notifyChange(int action, Uri notigicationUri, Uri uri, Bundle data, boolean syncToNetwork,
 			AppContentObserver observer) {
-		if (mCombinArray == null || mCombinArray.size() <= 0) {
+		if (mArray == null || mArray.size() <= 0) {
 			return;
 		}
 		if (observer == null) {
-			List<AppContentObserver> mContentObservers = mCombinArray.getValueOfKey(notigicationUri);
+			List<AppContentObserver> mContentObservers = mArray.get(notigicationUri);
 			if (mContentObservers != null) {
 				if (uri == null) {
 					uri = notigicationUri;
@@ -193,7 +193,7 @@ public class AppContentResolver {
 				}
 			}
 		} else {
-			List<AppContentObserver> mContentObservers = mCombinArray.getValueOfKey(notigicationUri);
+			List<AppContentObserver> mContentObservers = mArray.get(notigicationUri);
 			if (mContentObservers != null && mContentObservers.contains(observer)) {
 				if (uri == null) {
 					uri = notigicationUri;
@@ -212,14 +212,13 @@ public class AppContentResolver {
 	}
 
 	public void clearServicer() {
-		if (mCombinArray == null || mCombinArray.size() <= 0) {
+		if (mArray == null || mArray.size() <= 0) {
 			return;
 		}
 		synchronized (AppContentResolver.class) {
-			mCombinArray.startTransaction();
 			try {
-				for (int i = mCombinArray.size() - 1; i >= 0; i--) {
-					List<AppContentObserver> value = mCombinArray.getValue(i);
+				for (int i = mArray.size() - 1; i >= 0; i--) {
+					List<AppContentObserver> value = mArray.valueAt(i);
 					if (value != null) {
 						for (int j = value.size() - 1; j >= 0; j--) {
 							AppContentObserver result = value.get(j);
@@ -230,14 +229,12 @@ public class AppContentResolver {
 							}
 						}
 						if (value.isEmpty()) {
-							mCombinArray.removeAt(i);
+							mArray.removeAt(i);
 						}
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			} finally {
-				mCombinArray.endTransaction();
 			}
 		}
 	}
@@ -250,10 +247,10 @@ public class AppContentResolver {
 		if (notigicationUri == null) {
 			throw new NullPointerException("Notification Uri Not Null !");
 		}
-		if (mCombinArray == null || mCombinArray.isEmpty()) {
+		if (mArray == null || mArray.size() == 0) {
 			return false;
 		}
-		List<AppContentObserver> mContentObservers = mCombinArray.getValueOfKey(notigicationUri);
+		List<AppContentObserver> mContentObservers = mArray.get(notigicationUri);
 		if (observer == null) {
 			return mContentObservers != null && !mContentObservers.isEmpty();
 		}
