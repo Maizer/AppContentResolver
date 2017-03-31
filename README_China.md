@@ -49,7 +49,7 @@ class AppContentObserverImpl extends AppContentObserver{
   }
  ```
  
- 使用的开源库:[CombinArray](https://github.com/Maizer/MaizerArray/blob/master/CombinArray.java)
+ 包含开源库:[CombinArray](https://github.com/Maizer/MaizerArray/blob/master/CombinArray.java)
  
  开发平台:Eclipse
  
