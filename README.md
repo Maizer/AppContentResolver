@@ -1,6 +1,8 @@
 AppContentResolver
 ----------
-Android App Internal ContentResolver,It can internal transmit data In your's App.Android primitive ContentResolver only notification content is changed,If want get changed data,We must custom implements ,This is a very complicated work.
+Android App Internal ContentResolver,It can internal transmit data In your's App.Shorten time the data match,will changed specific data notification to foreground.
+
+Android primitive ContentResolver only notification content is changed,If want get changed data,We must custom implements ,This is a very complicated work.
 
 For example:
 
