@@ -30,8 +30,8 @@ public Cursor query(Uri uri, String[] projection, String selection, String[] sel
 ```
 
 在其他进程中使用AppContentObserver进行数据接受 :
-
 -
+
 ```Java
 //impl AppContentObserver receive background change
 class AppContentObserverImpl extends AppContentObserver{
