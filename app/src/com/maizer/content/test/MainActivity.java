@@ -3,13 +3,13 @@ package com.maizer.content.test;
 import com.maizer.appcontent.AppContentObserver;
 import com.maizer.appcontent.AppContentResolver;
 import com.maizer.appcontent.R;
-import com.maizer.array.CombinArray;
 import com.maizer.example.AppContentProvider;
 
 import android.app.Activity;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.ArrayMap;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
 
 	private class DataAdapter extends BaseAdapter {
 
-		private CombinArray<String, String> mArray = new CombinArray<String, String>();
+		private ArrayMap<String, String> mArray = new ArrayMap<String, String>();
 
 		@Override
 		public int getCount() {
@@ -73,12 +73,12 @@ public class MainActivity extends Activity {
 		}
 
 		public void addData(String key, String value) {
-			mArray.add(key, value);
+			mArray.put(key, value);
 			notifyDataSetChanged();
 		}
 
 		public void remove(String key) {
-			mArray.removeOfKey(key);
+			mArray.remove(key);
 			notifyDataSetChanged();
 		}
 

@@ -62,7 +62,7 @@ class AppContentObserverServicer extends AppContentObserver implements IInterfac
 		return hashcode;
 	}
 
-	public void onContentChanged(int action, Uri uri, Bundle data, boolean sync) {
+	public void dispatchContentChanged(int action, Uri uri, Bundle data, boolean sync) {
 		if (uri == null) {
 			throw new NullPointerException("uri not null!");
 		}

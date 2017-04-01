@@ -187,7 +187,7 @@ public class AppContentResolver {
 				for (int i = mContentObservers.size() - 1; i >= 0; i--) {
 					AppContentObserver mObserver = mContentObservers.get(i);
 					try {
-						mObserver.onContentChanged(action, uri, data, syncToNetwork);
+						mObserver.dispatchContentChanged(action, uri, data, syncToNetwork);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -200,7 +200,7 @@ public class AppContentResolver {
 					uri = notigicationUri;
 				}
 				try {
-					observer.onContentChanged(action, uri, data, syncToNetwork);
+					observer.dispatchContentChanged(action, uri, data, syncToNetwork);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -49,7 +49,8 @@ public class AppContentObserver {
 	public void onContentChanged(int action, Uri uri, Bundle data) {
 	}
 
-	void onContentChanged(int action, Uri uri, Bundle data, boolean sync) {
+	void dispatchContentChanged(int action, Uri uri, Bundle data, boolean sync) {
+		onContentChanged(action, uri, data);
 	}
 
 	AppContentObserverClient getContentObserverClient() {
