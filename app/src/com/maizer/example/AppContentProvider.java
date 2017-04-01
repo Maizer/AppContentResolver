@@ -61,7 +61,7 @@ public class AppContentProvider extends ContentProvider {
 
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-		if (AppContentResolver.isCallContentResolver(selection)) {
+		if (AppContentResolver.isCallAppContentResolver(selection)) {
 			Log.w(TAG, "query app content resolver");
 			return AppContentResolver.getAppContentResolverServicer(getContext()).getCursor();
 		}
