@@ -24,7 +24,7 @@
         </activity>
 
         <provider
-            android:name="com.maizer.example.AppContentProvider"
+            android:name="com.maizer.test.AppContentProvider"
             android:authorities="com.maizer.content"
             android:process=":resolver" >
             <path-permission android:path="com.maizer.appcontent" />
