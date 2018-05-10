@@ -15,8 +15,6 @@ Whether or not security depending on your ContentProvider . Please do not try to
 may trigger .
 -
 
-My english is bad,Please forgive.
-
 This program is very simple for use. 
 
 How work:
