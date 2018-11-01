@@ -26,6 +26,8 @@
  */
 package com.maizer.appcontent;
 
+import java.lang.ref.WeakReference;
+
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Bundle;
@@ -41,13 +43,13 @@ import android.os.RemoteException;
  */
 class AppContentObserverClient extends Binder implements IInterface {
 
-	private AppContentObserver mContentObserver;
+	private WeakReference<AppContentObserver> mContentObserver;
 
 	AppContentObserverClient(AppContentObserver observer) {
 		if (observer == null) {
 			throw new NullPointerException("Content Observer Not Null !");
 		}
-		mContentObserver = observer;
+		mContentObserver = new WeakReference<AppContentObserver>(observer);
 		attachInterface(this, AppContentObserver.DESCRIPTOR);
 	}
 
@@ -56,15 +58,20 @@ class AppContentObserverClient extends Binder implements IInterface {
 		switch (code) {
 		case AppContentObserverServicer.TRANSACTION_onContentChanged:
 			data.enforceInterface(AppContentObserver.DESCRIPTOR);
-			int action = data.readInt();
-			Uri uri = data.readParcelable(Uri.class.getClassLoader());
-			int flag = data.readInt();
-			Bundle bundle = null;
-			if (flag == 1) {
-				bundle = data.readParcelable(Bundle.class.getClassLoader());
+			AppContentObserver observer = mContentObserver.get();
+			if (observer != null) {
+				int action = data.readInt();
+				Uri uri = data.readParcelable(Uri.class.getClassLoader());
+				int flag = data.readInt();
+				Bundle bundle = null;
+				if (flag == 1) {
+					bundle = data.readParcelable(Bundle.class.getClassLoader());
+				}
+				observer.onContentChanged(action, uri, bundle);
+				reply.writeNoException();
+			} else {
+				reply.writeException(new NullPointerException("AppContentObserver is recyled!"));
 			}
-			mContentObserver.onContentChanged(action, uri, bundle);
-			reply.writeNoException();
 			return true;
 		}
 		return super.onTransact(code, data, reply, flags);
@@ -81,7 +88,11 @@ class AppContentObserverClient extends Binder implements IInterface {
 	 * prevent object overflow
 	 */
 	public final int hashCode() {
-		return mContentObserver.getClass().getCanonicalName().hashCode();
+		AppContentObserver observer = mContentObserver.get();
+		if (observer != null) {
+			return observer.getClass().getCanonicalName().hashCode();
+		}
+		throw new NullPointerException("AppContentObserver is recyled!");
 	}
 
 	@Override
